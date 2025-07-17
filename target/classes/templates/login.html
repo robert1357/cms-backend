@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - CMS OTI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .login-container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .alert {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert-error {
+            background-color: #fee;
+            color: #c00;
+            border: 1px solid #fcc;
+        }
+        .alert-success {
+            background-color: #efe;
+            color: #0a0;
+            border: 1px solid #cfc;
+        }
+        .alert.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 style="text-align: center; margin-bottom: 2rem;">Iniciar Sesión</h2>
+        
+        <div th:id="errorAlert" 
+             th:class="${param.error != null ? 'alert alert-error show' : 'alert alert-error'}"
+             th:if="${param.error}">
+            Usuario o contraseña inválidos.
+        </div>
+        
+        <div th:id="logoutAlert"
+             th:class="${param.logout != null ? 'alert alert-success show' : 'alert alert-success'}"
+             th:if="${param.logout}">
+            Has cerrado sesión exitosamente.
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="username">Usuario:</label>
+                <input type="text" 
+                       id="username" 
+                       name="username" 
+                       required 
+                       autocomplete="username"/>
+            </div>
+            <div class="form-group">
+                <label for="password">Contraseña:</label>
+                <input type="password" 
+                       id="password" 
+                       name="password" 
+                       required 
+                       autocomplete="current-password"/>
+            </div>
+            <button type="submit" class="submit-button">Iniciar Sesión</button>
+        </form>
+    </div>
+
+    <script>
+        // Ocultar alertas después de 5 segundos
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert.show');
+            if (alerts.length > 0) {
+                setTimeout(function() {
+                    alerts.forEach(function(alert) {
+                        alert.style.display = 'none';
+                    });
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>
