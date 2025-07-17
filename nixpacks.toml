@@ -1,0 +1,8 @@
+[phases.build]
+cmd = "mvn clean package -DskipTests"
+
+[phases.start]
+cmd = "java -Dserver.port=$PORT -jar target/cms-3.2.1-SNAPSHOT.jar"
+
+[variables]
+JAVA_VERSION = "17"
